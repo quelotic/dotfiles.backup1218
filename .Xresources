@@ -1,0 +1,8 @@
+! You may want to run $ xrdb -merge ~/.Xresources with each update
+
+#include ".Xresources.d/rofi.x"
+#include ".Xresources.d/urxvt.x"
+
+#include ".Xresources.d/gothamTheme.x"
+!#include ".Xresources.d/solarized.x"
+!#include ".Xresources.d/sourceror.x"

@@ -1,0 +1,199 @@
+set $mod Mod4
+
+#font xft:xos4 Terminus 9
+font xft:DejaVu Sans Mono 9
+floating_modifier $mod
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal/vertical orientation
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+space floating toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent/child container
+#bindsym $mod+a focus parent
+#bindsym $mod+d focus child
+
+# workspace names
+set $workspace1 "1:"
+set $workspace2 "2:"
+set $workspace3 "3:"
+set $workspace4 "4:"
+set $workspace5 "5:"
+set $workspace6 "6:"
+set $workspace7 "7:"
+set $workspace8 "8:"
+set $workspace9 "9:"
+set $workspace0 "10:"
+
+# switch to workspace
+bindsym $mod+1 workspace $workspace1
+bindsym $mod+2 workspace $workspace2
+bindsym $mod+3 workspace $workspace3
+bindsym $mod+4 workspace $workspace4
+bindsym $mod+5 workspace $workspace5
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
+bindsym $mod+0 workspace $workspace0
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $workspace1
+bindsym $mod+Shift+2 move container to workspace $workspace2
+bindsym $mod+Shift+3 move container to workspace $workspace3
+bindsym $mod+Shift+4 move container to workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5
+bindsym $mod+Shift+6 move container to workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9
+bindsym $mod+Shift+0 move container to workspace $workspace0
+
+# i3-gaps
+gaps outer 5
+gaps inner 10
+workspace $workspace4 gaps outer 20
+
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+mode "resize" {
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# custom bindings
+bindsym --release Print exec --no-startup-id scrot ~/Pictures/%d-%m-%T-screenshot.png && sleep 1 && notify-send 'Scrot' 'Screenshot saved!'
+bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Shift+Return exec i3-sensible-terminal -name "floatingUrxvt"
+bindsym $mod+d exec rofi -run-list-command ". ~/bin/zsh_aliases_functions.sh" -run-command "/bin/zsh -i -c '{cmd}'" -show run
+
+# new_window <normal|1pixel|none|pixel>
+# new_float <normal|1pixel|none|pixel>
+new_window pixel
+new_float pixel
+
+# power options
+set $mode_system System: Lock(l), Logout(e), Reboot(r), Shutdown(s)
+mode "$mode_system" {
+#	bindsym l exec --no-startup-id ~/.config/i3/i3exit lock, mode "default"
+    bindsym l exec --no-startup-id betterlockscreen --lock, mode "default"
+    bindsym e exec --no-startup-id ~/.config/i3/i3exit logout, mode "default"
+#	bindsym Shift+s exec --no-startup-id ~/.config/i3/i3exit suspend, mode "default"
+#	bindsym h exec --no-startup-id ~/.config/i3/i3exit hibernate, mode "default"
+	bindsym r exec --no-startup-id ~/.config/i3/i3exit reboot, mode "default"
+	bindsym s exec --no-startup-id ~/.config/i3/i3exit shutdown, mode "default"
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+bindsym $mod+Shift+e mode "$mode_system"
+
+# Application specific and window type settings
+for_window [class="[Ss]potify"] move to workspace $workspace4
+for_window [class="Lxappearance"] floating enable
+for_window [class="obs"] floating enable
+for_window [class="skypeforlinux"] floating enable
+for_window [class="pavucontrol"] floating enable
+for_window [class="Thunar"] floating enable
+for_window [class="[Pp]avucontrol"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="About"] floating enable
+for_window [class="Viber"] floating enable
+for_window [class="Viber"] move to workspace $workspace3
+for_window [class="TelegramDesktop"] floating enable
+for_window [class="TelegramDesktop"] move to workspace $workspace3
+for_window [class="NetBeans IDE 8.2"] move to workspace $workspace2
+for_window [class="Steam"] floating enable
+for_window [title="GIMP Startup"] move workspace $workspace9
+for_window [class="URxvt" instance="floatingUrxvt$"] floating toggle
+for_window [class="[Kk]ee[Pp]ass2"] floating enable
+for_window [class="Font"] floating enable
+assign [class="[Ff]irefox"] $workspace1
+assign [class="obs"] $workwspace0
+assign [class="libreoffice-startcenter"] $workspace5
+assign [class="skypeforlinux"] $workspace3
+assign [class="discord"] $workspace3
+assign [class="Steam"] $workspace0
+assign [class="Gimp"] $workspace9
+
+# volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+# brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
+
+set_from_resource $background   backgorund #000000
+set_from_resource $foreground   foreground #000000
+set_from_resource $darkblack    i3.color0  #000000
+set_from_resource $darkred      i3.color1  #000000
+set_from_resource $darkgreen    i3.color2  #000000
+set_from_resource $darkyellow   i3.color3  #000000
+set_from_resource $darkblue     i3.color4  #000000
+set_from_resource $darkmagenta  i3.color5  #000000
+set_from_resource $darkcyan     i3.color6  #000000
+set_from_resource $darkwhite    i3.color7  #000000
+set_from_resource $black        i3.color8  #000000
+set_from_resource $red          i3.color9  #000000
+set_from_resource $green        i3.color10 #000000
+set_from_resource $yellow       i3.color11 #000000
+set_from_resource $blue         i3.color12 #000000
+set_from_resource $magenta      i3.color13 #000000
+set_from_resource $cyan         i3.color14 #000000
+set_from_resource $white        i3.color15 #000000
+
+#                       background    border      text      indicator
+client.focused          $background   $blue       $cyan     $cyan
+client.focused_inactive $backgorund   $blue       $cyan     $cyan
+client.unfocused        $background   $blue       $cyan     $cyan
+client.urgent           $backgorund   $blue       $cyan     $cyan
+
+# autostart
+exec --no-startup-id xset r rate 200 30
+exec --no-startup-id setxkbmap us,gr -option grp:alt_shift_toggle,grp_led:scroll
+#exec --no-startup-id feh --randomize --bg-fill ~/Pictures/wallpapers/minimalist
+exec_always --no-startup-id feh --bg-fill ~/.config/i3/wallpaper.jpg
+exec_always --no-startup-id compton -f --xrender-sync --xrender-sync-fence --blur-background
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id nm-applet
