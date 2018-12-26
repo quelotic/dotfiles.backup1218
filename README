@@ -1,1 +1,12 @@
 ZSH Theme = agnoster
+ach.vim
+bufexplorer.vim
+nerdtree
+syntastic
+vim-airline
+vim-airline-themes
+vim-fugitive
+vim-gotham
+vim-surround
+YouCompleteMe
+10926 pathogen.vim
